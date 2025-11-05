@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="800" fill="#f8fafc" />
+  <g fill="#334155" font-family="Arial, Helvetica, sans-serif">
+    <text x="40" y="120" font-size="28" font-weight="700">Men's Casual Shirt</text>
+    <text x="40" y="170" font-size="18" opacity="0.9">High-quality cotton casual shirt</text>
+  </g>
+  <rect x="40" y="220" width="720" height="520" rx="20" fill="#e2e8f0" />
+  <text x="120" y="520" font-size="36" fill="#64748b" font-family="Arial">Product Image</text>
+</svg>

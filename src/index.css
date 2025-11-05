@@ -1,13 +1,25 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global theme variables and small utility helpers for primary color */
+:root {
+	--color-primary: #67C090;
+	--color-black: #000000;
+	--color-white: #ffffff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+	/* Default app background and text color */
+	body {
+		background-color: var(--color-white);
+		color: var(--color-black);
+	}
+}
+
+@layer components {
+	/* Simple helpers that can be used in markup when needed */
+	.bg-primary { background-color: var(--color-primary); }
+	.text-primary { color: var(--color-primary); }
+	.border-primary { border-color: var(--color-primary); }
 }
