@@ -190,10 +190,10 @@ const Navbar = () => {
 
       {/* ===== Mobile Header ===== */}
       <div className="flex md:hidden items-center justify-between px-4 py-3 border-b">
-        <Link to="/" className="text-xl font-bold uppercase text-gray-800">
+        <Link to="/" className="text-xl font-bold uppercase text-gray-800 pl-3">
           VELORISE
         </Link>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 pr-3">
           <Link
             to="/cart"
             className="relative text-gray-700 hover:text-gray-900"
