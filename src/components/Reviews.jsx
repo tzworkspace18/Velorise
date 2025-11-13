@@ -20,9 +20,9 @@ const Reviews = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 text-center relative">
         {/* Section Title */}
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-3">
-          What people Think <span className="text-red-500">About Us</span>
+          What people Think <span className="text-[#b18e5a]">About Us</span>
         </h2>
-        <div className="w-24 h-[3px] bg-red-500 mx-auto mb-10"></div>
+        <div className="w-24 h-[3px] bg-[#b18e5a] mx-auto mb-10"></div>
 
         {/* Review Cards */}
         <div className="relative flex justify-center items-center gap-6">
@@ -31,7 +31,7 @@ const Reviews = () => {
               {/* Left Arrow (Desktop) */}
               <button
                 onClick={prevReview}
-                className="hidden md:flex absolute left-0 -translate-y-1/2 top-1/2 bg-white border border-red-500 text-red-500 p-2.5 rounded-full hover:bg-red-50 transition"
+                className="hidden md:flex absolute left-0 -translate-y-1/2 top-1/2 bg-white border border-[#91621c] text-[#91621c] p-2.5 rounded-full hover:bg-red-50 transition"
               >
                 <FiChevronLeft size={18} />
               </button>
@@ -79,7 +79,7 @@ const Reviews = () => {
               {/* Right Arrow (Desktop) */}
               <button
                 onClick={nextReview}
-                className="hidden md:flex absolute right-0 -translate-y-1/2 top-1/2 bg-white border border-red-500 text-red-500 p-2.5 rounded-full hover:bg-red-50 transition"
+                className="hidden md:flex absolute right-0 -translate-y-1/2 top-1/2 bg-white border border-[#91621c] text-[#91621c] p-2.5 rounded-full hover:bg-red-50 transition"
               >
                 <FiChevronRight size={18} />
               </button>
@@ -144,7 +144,7 @@ const Reviews = () => {
         <div className="mt-8">
           <button
             onClick={() => setViewAll(!viewAll)}
-            className="bg-red-500 text-white px-6 py-1.5 rounded-full font-medium text-sm hover:bg-red-600 transition"
+            className="bg-[#faecd7] text-black px-8 py-3 rounded-full font-medium text-sm hover:bg-red-600 transition"
           >
             {viewAll ? "Show Less" : "View All"}
           </button>

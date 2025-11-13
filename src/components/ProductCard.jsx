@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useState } from "react";
+import { useLike } from "../context/LikeContext"; // ✅ Import context
 
 const ProductCard = ({ product }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const { toggleLike, isLiked } = useLike();
+  const liked = isLiked(product.id);
 
   return (
     <Link
       to={product.link}
       className="group relative bg-white border border-gray-100 hover:border-gray-300 transition-all overflow-hidden"
     >
-      {/* Product Image Section */}
+      {/* Product Image */}
       <div className="relative">
         <img
           src={product.images[0]}
@@ -25,16 +26,16 @@ const ProductCard = ({ product }) => {
           </span>
         )}
 
-        {/* Like (Heart) Icon */}
+        {/* ❤️ Like Button */}
         <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
           <button
             onClick={(e) => {
               e.preventDefault();
-              setIsFavourite(!isFavourite);
+              toggleLike(product);
             }}
-            className="bg-white p-1.5 sm:p-2 rounded-full shadow-sm hover:bg-gray-100 transition"
+            className="bg-white p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition"
           >
-            {isFavourite ? (
+            {liked ? (
               <FaHeart className="text-red-500 text-sm sm:text-lg" />
             ) : (
               <FaRegHeart className="text-gray-600 text-sm sm:text-lg" />
@@ -43,19 +44,14 @@ const ProductCard = ({ product }) => {
         </div>
       </div>
 
-      {/* Bottom Product Info */}
+      {/* Product Info */}
       <div className="p-3 sm:p-4 space-y-1 sm:space-y-2">
-        {/* Product Name */}
         <h3 className="text-xs sm:text-sm font-semibold text-gray-900 line-clamp-2">
           {product.name}
         </h3>
-
-        {/* Product Description */}
         <p className="text-gray-500 text-[11px] sm:text-xs line-clamp-2">
           {product.description}
         </p>
-
-        {/* Price Section */}
         <div className="flex items-center gap-1 sm:gap-2 mt-1">
           <p className="text-gray-900 font-bold text-xs sm:text-sm">
             ₹{product.discountPrice}
@@ -67,7 +63,7 @@ const ProductCard = ({ product }) => {
           )}
           {product.discountPercent && (
             <p className="text-green-600 text-[10px] sm:text-xs font-semibold">
-              {product.discountPercent}% <span>off</span>
+              {product.discountPercent}% off
             </p>
           )}
         </div>

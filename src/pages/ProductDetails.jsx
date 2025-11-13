@@ -128,18 +128,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Model Details */}
-            <div className="border border-gray-200 p-3 flex items-center gap-3 mb-6">
-              <img
-                src={product.images[0]}
-                alt="model"
-                className="w-12 h-16 object-cover rounded"
-              />
-              <p className="text-sm text-gray-700">
-                <strong>MODEL DETAILS:</strong> Model height is 5’8” and is
-                wearing size S.
-              </p>
-            </div>
+           
 
             {/* Wishlist + Add to Bag Buttons */}
             <div className="flex items-center gap-4 mb-6">
@@ -206,7 +195,7 @@ const ProductDetails = () => {
       {/* 🔥 Trending Products Section */}
       <div className="border-t border-gray-200 mt-10">
         <ProductGrid
-          title="Trending Products"
+          title="More Products"
           products={products.slice(0, 4)}
         />
       </div>

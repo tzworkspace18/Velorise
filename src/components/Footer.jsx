@@ -17,9 +17,14 @@ const Footer = () => {
         <div className="md:col-span-2">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-md bg-blue-600"></div>
-            <h3 className="text-gray-900 text-lg font-semibold">MyShop</h3>
+            <img
+              src="../images/brand-logo.png" // ← replace with your actual logo path
+              alt="Velorise Logo"
+              className="w-6 h-6 rounded-md object-contain"
+            />
+            <h3 className="text-gray-900 text-lg font-semibold">Velorise</h3>
           </div>
+
 
           {/* Description */}
           <p className="text-sm text-gray-600 mb-5 leading-relaxed">
@@ -127,7 +132,7 @@ const Footer = () => {
       {/* ⚖️ Bottom Legal Bar */}
       <div className="border-t border-gray-200 py-5">
         <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} MyShop — All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Velorise — All rights reserved.</p>
           <div className="flex gap-6">
             <Link to="/privacy-policy" className="hover:text-gray-800">
               Privacy Policy
