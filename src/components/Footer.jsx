@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/images/brand-logo.png";
+
 import {
   FaXTwitter,
   FaDiscord,
@@ -18,10 +20,11 @@ const Footer = () => {
           {/* Logo */}
           <div className="flex items-center gap-2 mb-3">
             <img
-              src="../images/brand-logo.png" // ← replace with your actual logo path
-              alt="Velorise Logo"
-              className="w-6 h-6 rounded-md object-contain"
-            />
+  src={logo}
+  alt="Velorise Logo"
+  className="w-8 h-8 object-contain"
+/>
+
             <h3 className="text-gray-900 text-lg font-semibold">Velorise</h3>
           </div>
 
