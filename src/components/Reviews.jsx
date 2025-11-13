@@ -18,10 +18,18 @@ const Reviews = () => {
   return (
     <section className="bg-white py-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 text-center relative">
-        {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-3">
+        {/* ✅ Section Title - Desktop & Mobile Separate */}
+        <h2 className="hidden sm:block text-3xl md:text-4xl font-semibold text-gray-900 mb-3">
           What people Think <span className="text-[#b18e5a]">About Us</span>
         </h2>
+
+        {/* ✅ Mobile View (Heading on Two Lines) */}
+        <h2 className="block sm:hidden text-3xl font-semibold text-gray-900 mb-3 leading-snug">
+          What people Think
+          <br />
+          <span className="text-[#b18e5a]">About Us</span>
+        </h2>
+
         <div className="w-24 h-[3px] bg-[#b18e5a] mx-auto mb-10"></div>
 
         {/* Review Cards */}
@@ -43,19 +51,16 @@ const Reviews = () => {
                     key={r.id}
                     className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition-all text-left relative"
                   >
-                    {/* Rating */}
                     <div className="flex items-center text-yellow-400 mb-2">
                       {Array.from({ length: r.rating }).map((_, i) => (
                         <FaStar key={i} className="text-yellow-400" />
                       ))}
                     </div>
 
-                    {/* Review Text */}
                     <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                       {r.text}
                     </p>
 
-                    {/* Reviewer Info */}
                     <div className="flex items-center gap-3 mt-auto">
                       <img
                         src={r.image}
@@ -68,7 +73,6 @@ const Reviews = () => {
                       </div>
                     </div>
 
-                    {/* Date */}
                     <span className="absolute top-4 right-5 text-xs text-gray-400">
                       {r.date}
                     </span>
@@ -122,7 +126,7 @@ const Reviews = () => {
           )}
         </div>
 
-        {/* 👇 Mobile Arrows - Centered Above View All Button */}
+        {/* 👇 Mobile Arrows */}
         {!viewAll && (
           <div className="flex justify-center gap-3 mt-10 md:hidden">
             <button
