@@ -17,7 +17,7 @@ const products = [
     description:
       "High-quality cotton casual shirt for men. Soft fabric with a clean modern fit — perfect for daily wear.",
     isBestseller: true,
-    images: [img100],
+    images: [img100, img200, img300], // ✅ now 3 images
     link: "/product/1",
   },
   {
@@ -31,7 +31,7 @@ const products = [
     discountPercent: 19,
     description:
       "Elegant lightweight summer dress for women, designed for all-day comfort and graceful style.",
-    images: [img200],
+    images: [img200, img300, img400],
     link: "/product/2",
   },
   {
@@ -45,7 +45,7 @@ const products = [
     discountPercent: 16,
     description:
       "Durable and stylish sneakers for kids — great for school, sports, and playtime.",
-    images: [img300],
+    images: [img300, img400, img500],
     link: "/product/3",
   },
   {
@@ -59,7 +59,7 @@ const products = [
     discountPercent: 20,
     description:
       "Classic slim-fit jeans crafted from premium stretch denim for maximum comfort and durability.",
-    images: [img400],
+    images: [img400, img100, img200],
     link: "/product/4",
   },
   {
@@ -74,7 +74,7 @@ const products = [
     description:
       "Elegant faux-leather handbag with spacious design — perfect for daily or formal use.",
     isBestseller: true,
-    images: [img500],
+    images: [img500, img400, img300],
     link: "/product/5",
   },
   {
@@ -88,7 +88,7 @@ const products = [
     discountPercent: 20,
     description:
       "Trendy printed t-shirt made with breathable cotton fabric and bold graphics.",
-    images: [img100],
+    images: [img100, img200, img500],
     link: "/product/6",
   },
   {
@@ -102,7 +102,7 @@ const products = [
     discountPercent: 16,
     description:
       "Classic blue denim jacket for women — stylish, versatile, and comfortable for all seasons.",
-    images: [img400],
+    images: [img400, img300, img200],
     link: "/product/7",
   },
   {
@@ -116,7 +116,7 @@ const products = [
     discountPercent: 17,
     description:
       "Cozy hooded sweatshirt made from premium fleece fabric, perfect for casual or gym wear.",
-    images: [img500],
+    images: [img500, img400, img100],
     link: "/product/8",
   },
   {
@@ -130,7 +130,7 @@ const products = [
     discountPercent: 20,
     description:
       "Soft cotton printed T-shirt for kids with fun and colorful designs for daily wear.",
-    images: [img200],
+    images: [img200, img100, img500],
     link: "/product/9",
   },
   {
@@ -144,7 +144,7 @@ const products = [
     discountPercent: 18,
     description:
       "Premium formal trousers for men with modern fit — perfect for office and events.",
-    images: [img300],
+    images: [img300, img200, img400],
     link: "/product/10",
   },
 ];
