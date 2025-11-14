@@ -15,16 +15,21 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // ✅ Add to Cart (treats same product + same size as one, different size = new line)
+  // ✅ Add to Cart (treats same product + same size + same color as one)
   const addToCart = (product) => {
     setCartItems((prev) => {
       const existing = prev.find(
-        (item) => item.id === product.id && item.size === product.size
+        (item) =>
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
       );
 
       if (existing) {
         const updated = prev.map((item) =>
-          item.id === product.id && item.size === product.size
+          item.id === product.id &&
+          item.size === product.size &&
+          item.color === product.color
             ? { ...item, quantity: item.quantity + (product.quantity || 1) }
             : item
         );
@@ -38,22 +43,22 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Remove specific product + size from cart
-  const removeFromCart = (id, size) => {
+  // ✅ Remove product by id + size + color
+  const removeFromCart = (id, size, color) => {
     setCartItems((prev) => {
       const updated = prev.filter(
-        (item) => !(item.id === id && item.size === size)
+        (item) => !(item.id === id && item.size === size && item.color === color)
       );
       localStorage.setItem("cartItems", JSON.stringify(updated));
       return updated;
     });
   };
 
-  // ✅ Update quantity safely
-  const updateQuantity = (id, size, qty) => {
+  // ✅ Update quantity safely (by id + size + color)
+  const updateQuantity = (id, size, color, qty) => {
     setCartItems((prev) => {
       const updated = prev.map((item) =>
-        item.id === id && item.size === size
+        item.id === id && item.size === size && item.color === color
           ? { ...item, quantity: Math.max(1, qty) }
           : item
       );
@@ -62,21 +67,21 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Update product size in cart safely (handles merging if same variant exists)
-  const updateSize = (id, oldSize, newSize) => {
+  // ✅ Update product size safely (handles merging with same id + color)
+  const updateSize = (id, oldSize, newSize, color) => {
     setCartItems((prev) => {
       const sameVariant = prev.find(
-        (item) => item.id === id && item.size === newSize
+        (item) => item.id === id && item.size === newSize && item.color === color
       );
 
       if (sameVariant) {
-        // If same variant already exists, merge quantities
         const updated = prev
           .map((item) => {
-            if (item.id === id && item.size === newSize) {
+            if (item.id === id && item.size === newSize && item.color === color) {
               return { ...item, quantity: item.quantity + 1 };
             }
-            if (item.id === id && item.size === oldSize) return null;
+            if (item.id === id && item.size === oldSize && item.color === color)
+              return null;
             return item;
           })
           .filter(Boolean);
@@ -84,9 +89,8 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem("cartItems", JSON.stringify(updated));
         return updated;
       } else {
-        // Otherwise, just update size
         const updated = prev.map((item) =>
-          item.id === id && item.size === oldSize
+          item.id === id && item.size === oldSize && item.color === color
             ? { ...item, size: newSize }
             : item
         );
