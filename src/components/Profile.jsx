@@ -487,22 +487,74 @@ const Profile = () => {
                             <p className="text-gray-500 text-sm">No addresses saved.</p>
                         ) : (
                             <div className="space-y-3 max-h-64 overflow-auto">
-                                {addresses.map((addr, i) => (
-                                    <div key={i} className={`border rounded-lg p-3 ${addr.isDefault ? "ring-2 ring-indigo-200" : ""}`}>
-                                        <div className="flex justify-between">
-                                            <p className="font-medium text-gray-800 text-sm">{addr.firstName} {addr.lastName}</p>
-                                            {addr.isDefault && <span className="text-xs text-indigo-600 font-medium">Default</span>}
-                                        </div>
-                                        <p className="text-xs text-gray-600 mt-1">{addr.address}, {addr.city}, {addr.state}, {addr.postal}, {addr.country}</p>
-                                        <div className="flex gap-2 mt-2">
-                                            {!addr.isDefault && (
-                                                <button onClick={() => setDefaultAddress(i)} className="text-yellow-600 text-xs hover:underline">Set Default</button>
-                                            )}
-                                            <button onClick={() => openEditAddress(i)} className="text-indigo-600 text-xs hover:underline">Edit</button>
-                                            <button onClick={() => handleDeleteClick(i)} className="text-red-600 text-xs hover:underline">Delete</button>
-                                        </div>
-                                    </div>
-                                ))}
+   {addresses.map((addr, i) => (
+  <div
+    key={i}
+    className={`relative rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300 ${
+      addr.isDefault ? "border-[#b18e5a]" : ""
+    }`}
+  >
+    {/* Header */}
+    <div className="flex justify-between items-start mb-3">
+      <div>
+        <h3 className="text-[15px] font-semibold text-gray-800">
+          {addr.firstName} {addr.lastName}
+        </h3>
+        <p className="text-sm text-gray-500">
+          {addr.city}, {addr.state}
+        </p>
+      </div>
+
+      {addr.isDefault && (
+        <span className="px-3 py-0.5 text-xs font-semibold bg-[#f5f2ed] text-[#3f2e14] rounded-full border border-[#d9c7a0]">
+          Default
+        </span>
+      )}
+    </div>
+
+    {/* Address Details */}
+    <div className="text-[14px] text-gray-700 leading-relaxed">
+      <p>{addr.address}</p>
+      <p>
+        {addr.city}, {addr.state} — {addr.postal}
+      </p>
+      <p>{addr.country}</p>
+    </div>
+
+    {/* Footer Actions */}
+    <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+      <div className="flex gap-4 text-xs font-medium">
+        {!addr.isDefault && (
+          <button
+            onClick={() => setDefaultAddress(i)}
+            className="text-[#b18e5a] hover:text-[#8c6b3d] transition-colors"
+          >
+            Set Default
+          </button>
+        )}
+        <button
+          onClick={() => openEditAddress(i)}
+          className="text-indigo-600 hover:text-indigo-800 transition-colors"
+        >
+          Edit
+        </button>
+        <button
+          onClick={() => handleDeleteClick(i)}
+          className="text-red-500 hover:text-red-700 transition-colors"
+        >
+          Delete
+        </button>
+      </div>
+
+      <span className="text-[11px] text-gray-400 italic">
+        Updated {new Date().toLocaleDateString()}
+      </span>
+    </div>
+  </div>
+))}
+
+
+
                             </div>
                         )}
                     </div>
