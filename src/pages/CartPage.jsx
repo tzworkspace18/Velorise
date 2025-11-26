@@ -149,7 +149,7 @@ const CartPage = () => {
 
             <button
               onClick={handleCheckout}
-              className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition-all text-center"
+              className="w-full mt-6 bg-[#faecd7] text-black font-semibold text-base  py-3 rounded-lg hover:bg-[#ba945b] transition-all text-center"
             >
               Proceed to Checkout
             </button>

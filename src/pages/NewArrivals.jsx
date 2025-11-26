@@ -31,7 +31,7 @@ const NewArrivals = () => {
             {/* Optional CTA Button */}
             <Link
               to="/products"
-              className="hidden sm:block mt-4 sm:mt-0 bg-[#faecd7] text-black text-sm font-semibold px-5 py-2.5 rounded-lg shadow hover:bg-gray-800 hover:text-white transition"
+              className="hidden sm:block mt-4 sm:mt-0 bg-[#faecd7] text-black text-sm font-semibold px-5 py-2.5 rounded-lg shadow hover:bg-[#ba945b]  transition"
             >
               Shop All Products
             </Link>
@@ -65,7 +65,7 @@ const NewArrivals = () => {
           </p>
           <Link
             to="/products"
-            className="inline-block bg-[#faecd7] text-black text-sm font-semibold px-6 py-2.5 rounded-lg shadow hover:bg-gray-800 hover:text-white transition"
+            className="inline-block bg-[#faecd7] text-black text-sm font-semibold px-6 py-2.5 rounded-lg shadow hover:bg-[#ba945b]  transition"
           >
             Explore More
           </Link>

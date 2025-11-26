@@ -276,188 +276,186 @@ const Profile = () => {
         <div className="min-h-screen bg-gray-50 py-10 px-4 flex flex-col items-center">
             <div className="w-full max-w-6xl">
                 {/* Profile Header */}
-<div className="bg-white rounded-2xl shadow-md overflow-hidden">
-  <div className="p-6 flex flex-col md:flex-row md:items-center md:justify-between bg-gradient-to-r from-[#faecd7] via-white to-[#faecd7]">
-    {/* Left: Profile Image */}
-    <div className="flex items-center gap-6">
-      <div className="flex-shrink-0">
-        <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-black bg-white flex items-center justify-center shadow">
-          <FiUser className="text-gray-700 text-5xl" />
-        </div>
-      </div>
+                <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+                    <div className="p-6 flex flex-col md:flex-row md:items-center md:justify-between bg-gradient-to-r from-[#faecd7] via-white to-[#faecd7]">
+                        {/* Left: Profile Image */}
+                        <div className="flex items-center gap-6">
+                            <div className="flex-shrink-0">
+                                <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-black bg-white flex items-center justify-center shadow">
+                                    <FiUser className="text-gray-700 text-5xl" />
+                                </div>
+                            </div>
 
-      {/* Center: User Info */}
-      <div>
-        <h1 className="text-2xl font-semibold text-gray-800">{profileForm.name}</h1>
-        <p className="text-gray-600 mt-1">{profileForm.mobile}</p>
-      </div>
-    </div>
+                            {/* Center: User Info */}
+                            <div>
+                                <h1 className="text-2xl font-semibold text-gray-800">{profileForm.name}</h1>
+                                <p className="text-gray-600 mt-1">{profileForm.mobile}</p>
+                            </div>
+                        </div>
 
-    {/* Right: Buttons */}
-    <div className="mt-6 md:mt-0 flex gap-3 justify-end">
-      <button
-        onClick={() => setShowEditProfile(true)}
-        className="px-5 py-2 border border-black rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-all"
-      >
-        Edit Profile
-      </button>
-      <button
-        onClick={logout}
-        className="px-5 py-2 border bg-red-600 text-white font-medium rounded-md hover:bg-red-50 transition-all"
-      >
-        Logout
-      </button>
-    </div>
-  </div>
-</div>
-
-
-                
-
-
-{/* Orders */}
-<div className="mt-6 bg-white rounded-xl shadow-md p-6">
-  <h2 className="text-lg font-semibold mb-4 text-gray-800">My Orders</h2>
-
-  {orders.length === 0 ? (
-    <p className="text-gray-500 text-center">No orders yet.</p>
-  ) : (
-    <>
-      {/* ✅ Desktop List/Table View */}
-      <div className="hidden md:block overflow-x-auto">
-        <table className="w-full text-sm text-gray-700 border-collapse">
-          <thead className="bg-gray-100 text-gray-700 font-medium">
-            <tr>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Order ID</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Date</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Status</th>
-              <th className="px-6 py-3 text-left whitespace-nowrap">Total</th>
-              <th className="px-6 py-3 text-right whitespace-nowrap">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((o, i) => (
-              <tr
-                key={i}
-                className="border-b hover:bg-gray-50 transition-colors duration-200"
-              >
-                <td className="px-6 py-3 align-middle font-medium">{o.id}</td>
-                <td className="px-6 py-3 align-middle">{o.date}</td>
-                <td className="px-6 py-3 align-middle">
-                  <span
-                    className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                      o.status === "Delivered"
-                        ? "bg-green-100 text-green-700"
-                        : o.status === "Shipped"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : o.status === "Cancelled"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {o.status}
-                  </span>
-                </td>
-                <td className="px-6 py-3 align-middle">{o.total}</td>
-                <td className="px-6 py-3 text-right align-middle flex justify-end gap-3">
-                  <button
-                    onClick={() => viewOrderDetails(o)}
-                    className="text-indigo-600 hover:text-indigo-800 inline-flex items-center gap-1 transition-colors duration-200"
-                  >
-                    <FiEye className="text-sm" /> View
-                  </button>
-                  {o.status !== "Cancelled" && o.status !== "Delivered" && (
-                    <button
-                      onClick={() => cancelOrder(o.id)}
-                      className="text-red-600 hover:text-red-800 inline-flex items-center gap-1 transition-colors duration-200"
-                    >
-                      <FiTrash2 className="text-sm" />
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* ✅ Mobile Card View */}
-      <div className="grid gap-4 sm:grid-cols-1 md:hidden">
-        {orders.map((o, i) => (
-          <div
-            key={i}
-            className="border rounded-xl p-5 shadow-sm bg-white hover:shadow-md transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex justify-between items-start mb-2">
-                <p className="text-sm font-semibold text-gray-800">
-                  Order ID: {o.id}
-                </p>
-                <span
-                  className={`px-2 py-1 text-xs font-medium rounded ${
-                    o.status === "Delivered"
-                      ? "bg-green-100 text-green-700"
-                      : o.status === "Shipped"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : o.status === "Cancelled"
-                      ? "bg-red-100 text-red-700"
-                      : "bg-gray-100 text-gray-700"
-                  }`}
-                >
-                  {o.status}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600 mb-1">
-                <strong>Date:</strong> {o.date}
-              </p>
-              <p className="text-sm text-gray-600 mb-3">
-                <strong>Total:</strong> {o.total}
-              </p>
-
-              {/* Display first item preview */}
-              {o.items && o.items.length > 0 && (
-                <div className="flex items-center gap-3 border-t pt-3">
-                  <img
-                    src={o.items[0].image || "https://via.placeholder.com/60"}
-                    alt={o.items[0].name}
-                    className="w-14 h-14 rounded-md border object-cover"
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {o.items[0].name}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      Qty: {o.items[0].qty} | {o.items[0].price}
-                    </p>
-                  </div>
+                        {/* Right: Buttons */}
+                        <div className="mt-6 md:mt-0 flex gap-3 justify-end">
+                            <button
+                                onClick={() => setShowEditProfile(true)}
+                                className="px-5 py-2 border border-black rounded-md text-gray-800 font-medium hover:bg-gray-50 transition-all"
+                            >
+                                Edit Profile
+                            </button>
+                            <button
+                                onClick={logout}
+                                className="px-5 py-2 border bg-red-600 text-white font-medium rounded-md hover:bg-red-50 transition-all"
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              )}
-            </div>
 
-            {/* Action buttons */}
-            <div className="mt-4 flex justify-between items-center">
-              <button
-                onClick={() => viewOrderDetails(o)}
-                className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 text-sm"
-              >
-                <FiEye /> View
-              </button>
 
-              {o.status !== "Cancelled" && o.status !== "Delivered" && (
-                <button
-                  onClick={() => cancelOrder(o.id)}
-                  className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm"
-                >
-                  <FiTrash2 /> Cancel
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
-  )}
-</div>
+
+
+
+                {/* Orders */}
+                <div className="mt-6 bg-white rounded-xl shadow-md p-6">
+                    <h2 className="text-lg font-semibold mb-4 text-gray-800">My Orders</h2>
+
+                    {orders.length === 0 ? (
+                        <p className="text-gray-500 text-center">No orders yet.</p>
+                    ) : (
+                        <>
+                            {/* ✅ Desktop List/Table View */}
+                            <div className="hidden md:block overflow-x-auto">
+                                <table className="w-full text-sm text-gray-700 border-collapse">
+                                    <thead className="bg-gray-100 text-gray-700 font-medium">
+                                        <tr>
+                                            <th className="px-6 py-3 text-left whitespace-nowrap">Order ID</th>
+                                            <th className="px-6 py-3 text-left whitespace-nowrap">Date</th>
+                                            <th className="px-6 py-3 text-left whitespace-nowrap">Status</th>
+                                            <th className="px-6 py-3 text-left whitespace-nowrap">Total</th>
+                                            <th className="px-6 py-3 text-right whitespace-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {orders.map((o, i) => (
+                                            <tr
+                                                key={i}
+                                                className="border-b hover:bg-gray-50 transition-colors duration-200"
+                                            >
+                                                <td className="px-6 py-3 align-middle font-medium">{o.id}</td>
+                                                <td className="px-6 py-3 align-middle">{o.date}</td>
+                                                <td className="px-6 py-3 align-middle">
+                                                    <span
+                                                        className={`inline-block px-2 py-1 rounded text-xs font-medium ${o.status === "Delivered"
+                                                                ? "bg-green-100 text-green-700"
+                                                                : o.status === "Shipped"
+                                                                    ? "bg-yellow-100 text-yellow-700"
+                                                                    : o.status === "Cancelled"
+                                                                        ? "bg-red-100 text-red-700"
+                                                                        : "bg-gray-100 text-gray-700"
+                                                            }`}
+                                                    >
+                                                        {o.status}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-3 align-middle">{o.total}</td>
+                                                <td className="px-6 py-3 text-right align-middle flex justify-end gap-3">
+                                                    <button
+                                                        onClick={() => viewOrderDetails(o)}
+                                                        className="text-indigo-600 hover:text-indigo-800 inline-flex items-center gap-1 transition-colors duration-200"
+                                                    >
+                                                        <FiEye className="text-sm" /> View
+                                                    </button>
+                                                    {o.status !== "Cancelled" && o.status !== "Delivered" && (
+                                                        <button
+                                                            onClick={() => cancelOrder(o.id)}
+                                                            className="text-red-600 hover:text-red-800 inline-flex items-center gap-1 transition-colors duration-200"
+                                                        >
+                                                            <FiTrash2 className="text-sm" />
+                                                        </button>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* ✅ Mobile Card View */}
+                            <div className="grid gap-4 sm:grid-cols-1 md:hidden">
+                                {orders.map((o, i) => (
+                                    <div
+                                        key={i}
+                                        className="border rounded-xl p-5 shadow-sm bg-white hover:shadow-md transition-all flex flex-col justify-between"
+                                    >
+                                        <div>
+                                            <div className="flex justify-between items-start mb-2">
+                                                <p className="text-sm font-semibold text-gray-800">
+                                                    Order ID: {o.id}
+                                                </p>
+                                                <span
+                                                    className={`px-2 py-1 text-xs font-medium rounded ${o.status === "Delivered"
+                                                            ? "bg-green-100 text-green-700"
+                                                            : o.status === "Shipped"
+                                                                ? "bg-yellow-100 text-yellow-700"
+                                                                : o.status === "Cancelled"
+                                                                    ? "bg-red-100 text-red-700"
+                                                                    : "bg-gray-100 text-gray-700"
+                                                        }`}
+                                                >
+                                                    {o.status}
+                                                </span>
+                                            </div>
+                                            <p className="text-sm text-gray-600 mb-1">
+                                                <strong>Date:</strong> {o.date}
+                                            </p>
+                                            <p className="text-sm text-gray-600 mb-3">
+                                                <strong>Total:</strong> {o.total}
+                                            </p>
+
+                                            {/* Display first item preview */}
+                                            {o.items && o.items.length > 0 && (
+                                                <div className="flex items-center gap-3 border-t pt-3">
+                                                    <img
+                                                        src={o.items[0].image || "https://via.placeholder.com/60"}
+                                                        alt={o.items[0].name}
+                                                        className="w-14 h-14 rounded-md border object-cover"
+                                                    />
+                                                    <div>
+                                                        <p className="text-sm font-medium text-gray-800">
+                                                            {o.items[0].name}
+                                                        </p>
+                                                        <p className="text-xs text-gray-500">
+                                                            Qty: {o.items[0].qty} | {o.items[0].price}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Action buttons */}
+                                        <div className="mt-4 flex justify-between items-center">
+                                            <button
+                                                onClick={() => viewOrderDetails(o)}
+                                                className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 text-sm"
+                                            >
+                                                <FiEye /> View
+                                            </button>
+
+                                            {o.status !== "Cancelled" && o.status !== "Delivered" && (
+                                                <button
+                                                    onClick={() => cancelOrder(o.id)}
+                                                    className="text-red-600 hover:text-red-800 flex items-center gap-1 text-sm"
+                                                >
+                                                    <FiTrash2 /> Cancel
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
 
 
 
@@ -487,71 +485,70 @@ const Profile = () => {
                             <p className="text-gray-500 text-sm">No addresses saved.</p>
                         ) : (
                             <div className="space-y-3 max-h-64 overflow-auto">
-   {addresses.map((addr, i) => (
-  <div
-    key={i}
-    className={`relative rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300 ${
-      addr.isDefault ? "border-[#b18e5a]" : ""
-    }`}
-  >
-    {/* Header */}
-    <div className="flex justify-between items-start mb-3">
-      <div>
-        <h3 className="text-[15px] font-semibold text-gray-800">
-          {addr.firstName} {addr.lastName}
-        </h3>
-        <p className="text-sm text-gray-500">
-          {addr.city}, {addr.state}
-        </p>
-      </div>
+                                {addresses.map((addr, i) => (
+                                    <div
+                                        key={i}
+                                        className={`relative rounded-2xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-all duration-300 ${addr.isDefault ? "border-[#b18e5a]" : ""
+                                            }`}
+                                    >
+                                        {/* Header */}
+                                        <div className="flex justify-between items-start mb-3">
+                                            <div>
+                                                <h3 className="text-[15px] font-semibold text-gray-800">
+                                                    {addr.firstName} {addr.lastName}
+                                                </h3>
+                                                <p className="text-sm text-gray-500">
+                                                    {addr.city}, {addr.state}
+                                                </p>
+                                            </div>
 
-      {addr.isDefault && (
-        <span className="px-3 py-0.5 text-xs font-semibold bg-[#f5f2ed] text-[#3f2e14] rounded-full border border-[#d9c7a0]">
-          Default
-        </span>
-      )}
-    </div>
+                                            {addr.isDefault && (
+                                                <span className="px-3 py-0.5 text-xs font-semibold bg-[#f5f2ed] text-[#3f2e14] rounded-full border border-[#d9c7a0]">
+                                                    Default
+                                                </span>
+                                            )}
+                                        </div>
 
-    {/* Address Details */}
-    <div className="text-[14px] text-gray-700 leading-relaxed">
-      <p>{addr.address}</p>
-      <p>
-        {addr.city}, {addr.state} — {addr.postal}
-      </p>
-      <p>{addr.country}</p>
-    </div>
+                                        {/* Address Details */}
+                                        <div className="text-[14px] text-gray-700 leading-relaxed">
+                                            <p>{addr.address}</p>
+                                            <p>
+                                                {addr.city}, {addr.state} — {addr.postal}
+                                            </p>
+                                            <p>{addr.country}</p>
+                                        </div>
 
-    {/* Footer Actions */}
-    <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
-      <div className="flex gap-4 text-xs font-medium">
-        {!addr.isDefault && (
-          <button
-            onClick={() => setDefaultAddress(i)}
-            className="text-[#b18e5a] hover:text-[#8c6b3d] transition-colors"
-          >
-            Set Default
-          </button>
-        )}
-        <button
-          onClick={() => openEditAddress(i)}
-          className="text-indigo-600 hover:text-indigo-800 transition-colors"
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => handleDeleteClick(i)}
-          className="text-red-500 hover:text-red-700 transition-colors"
-        >
-          Delete
-        </button>
-      </div>
+                                        {/* Footer Actions */}
+                                        <div className="mt-4 pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+                                            <div className="flex gap-4 text-xs font-medium">
+                                                {!addr.isDefault && (
+                                                    <button
+                                                        onClick={() => setDefaultAddress(i)}
+                                                        className="text-[#b18e5a] hover:text-[#8c6b3d] transition-colors"
+                                                    >
+                                                        Set Default
+                                                    </button>
+                                                )}
+                                                <button
+                                                    onClick={() => openEditAddress(i)}
+                                                    className="text-indigo-600 hover:text-indigo-800 transition-colors"
+                                                >
+                                                    Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteClick(i)}
+                                                    className="text-red-500 hover:text-red-700 transition-colors"
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
 
-      <span className="text-[11px] text-gray-400 italic">
-        Updated {new Date().toLocaleDateString()}
-      </span>
-    </div>
-  </div>
-))}
+                                            <span className="text-[11px] text-gray-400 italic">
+                                                Updated {new Date().toLocaleDateString()}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
 
 
 
@@ -628,95 +625,94 @@ const Profile = () => {
             )}
 
             {/* ✅ Order Details Modal (Fix for View Button) */}
-{showOrderModal && selectedOrder && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-    {/* Background Overlay */}
-    <div
-      className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-      onClick={closeOrderModal}
-    ></div>
+            {showOrderModal && selectedOrder && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    {/* Background Overlay */}
+                    <div
+                        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                        onClick={closeOrderModal}
+                    ></div>
 
-    {/* Modal Box */}
-    <div
-      className="relative bg-white rounded-xl shadow-xl w-full max-w-lg p-6 overflow-auto max-h-[90vh]"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-        Order Details
-      </h3>
+                    {/* Modal Box */}
+                    <div
+                        className="relative bg-white rounded-xl shadow-xl w-full max-w-lg p-6 overflow-auto max-h-[90vh]"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h3 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                            Order Details
+                        </h3>
 
-      <div className="space-y-3 text-gray-700 text-sm">
-        <p>
-          <strong>Order ID:</strong> {selectedOrder.id}
-        </p>
-        <p>
-          <strong>Date:</strong> {selectedOrder.date}
-        </p>
-        <p>
-          <strong>Status:</strong>{" "}
-          <span
-            className={`font-medium ${
-              selectedOrder.status === "Delivered"
-                ? "text-green-600"
-                : selectedOrder.status === "Cancelled"
-                ? "text-red-600"
-                : "text-yellow-600"
-            }`}
-          >
-            {selectedOrder.status}
-          </span>
-        </p>
-        <p>
-          <strong>Total:</strong> {selectedOrder.total}
-        </p>
-      </div>
+                        <div className="space-y-3 text-gray-700 text-sm">
+                            <p>
+                                <strong>Order ID:</strong> {selectedOrder.id}
+                            </p>
+                            <p>
+                                <strong>Date:</strong> {selectedOrder.date}
+                            </p>
+                            <p>
+                                <strong>Status:</strong>{" "}
+                                <span
+                                    className={`font-medium ${selectedOrder.status === "Delivered"
+                                            ? "text-green-600"
+                                            : selectedOrder.status === "Cancelled"
+                                                ? "text-red-600"
+                                                : "text-yellow-600"
+                                        }`}
+                                >
+                                    {selectedOrder.status}
+                                </span>
+                            </p>
+                            <p>
+                                <strong>Total:</strong> {selectedOrder.total}
+                            </p>
+                        </div>
 
-      {/* Product Items */}
-      <div className="mt-4 border-t pt-3 space-y-3">
-        <h4 className="text-md font-semibold text-gray-800">Items:</h4>
-        {selectedOrder.items && selectedOrder.items.length > 0 ? (
-          selectedOrder.items.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-center justify-between border-b pb-2"
-            >
-              <div className="flex items-center gap-3">
-                <img
-                  src={item.image || "https://via.placeholder.com/60"}
-                  alt={item.name}
-                  className="w-12 h-12 rounded-md border object-cover"
-                />
-                <div>
-                  <p className="font-medium text-gray-800 text-sm">
-                    {item.name}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    Qty: {item.qty} | {item.price}
-                  </p>
+                        {/* Product Items */}
+                        <div className="mt-4 border-t pt-3 space-y-3">
+                            <h4 className="text-md font-semibold text-gray-800">Items:</h4>
+                            {selectedOrder.items && selectedOrder.items.length > 0 ? (
+                                selectedOrder.items.map((item, i) => (
+                                    <div
+                                        key={i}
+                                        className="flex items-center justify-between border-b pb-2"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <img
+                                                src={item.image || "https://via.placeholder.com/60"}
+                                                alt={item.name}
+                                                className="w-12 h-12 rounded-md border object-cover"
+                                            />
+                                            <div>
+                                                <p className="font-medium text-gray-800 text-sm">
+                                                    {item.name}
+                                                </p>
+                                                <p className="text-xs text-gray-500">
+                                                    Qty: {item.qty} | {item.price}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p className="text-sm font-semibold text-gray-800">
+                                            {item.price}
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-gray-500 text-sm">No items found.</p>
+                            )}
+                        </div>
+
+                        {/* Close Button */}
+                        <div className="mt-6 flex justify-center">
+                            <button
+                                onClick={closeOrderModal}
+                                className="px-6 py-2 bg-[#faecd7] text-black rounded-md hover:bg-[#f7e0bb] transition-all"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <p className="text-sm font-semibold text-gray-800">
-                {item.price}
-              </p>
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500 text-sm">No items found.</p>
-        )}
-      </div>
-
-      {/* Close Button */}
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={closeOrderModal}
-          className="px-6 py-2 bg-[#faecd7] text-black rounded-md hover:bg-[#f7e0bb] transition-all"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+            )}
 
 
             {/* Toast */}

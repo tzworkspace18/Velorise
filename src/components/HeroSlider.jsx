@@ -46,13 +46,13 @@ const HeroSlider = ({ slides = [] }) => {
                 <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
                   <a
                     href={s.link || "/products"}
-                    className="inline-block bg-[#faecd7] text-black px-5 py-2.5 sm:px-6 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-gray-800 hover:text-white transition"
+                    className="inline-block bg-[#faecd7] text-black px-5 py-2.5 sm:px-6 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-[#ba945b]  transition"
                   >
                     Shop Now
                   </a>
                   <a
                     href={s.link || "/products"}
-                    className="inline-block border-2 border-[#faecd7] text-black px-5 py-2.5 sm:px-6 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-gray-100 transition"
+                    className="inline-block border-2 border-[#faecd7] text-black px-5 py-2.5 sm:px-6 sm:py-3 rounded-md font-medium text-sm sm:text-base hover:bg-[#ba945b] transition"
                   >
                     Explore
                   </a>
@@ -86,7 +86,7 @@ const HeroSlider = ({ slides = [] }) => {
                       )}
                       <a
                         href={s.link || "/products"}
-                        className="bg-[#faecd7] text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium hover:bg-gray-800 hover:text-white"
+                        className="bg-[#faecd7] text-black px-3 py-1.5 sm:px-4 sm:py-2 rounded-md text-xs sm:text-sm font-medium hover:bg-[#ba945b] "
                       >
                         View
                       </a>

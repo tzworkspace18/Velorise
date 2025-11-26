@@ -148,7 +148,7 @@ const Reviews = () => {
         <div className="mt-8">
           <button
             onClick={() => setViewAll(!viewAll)}
-            className="bg-[#faecd7] text-black px-8 py-3 rounded-full font-medium text-sm hover:bg-red-600 transition"
+            className="bg-[#faecd7] text-black px-8 py-3 rounded-full font-medium text-sm hover:bg-[#ba945b] transition"
           >
             {viewAll ? "Show Less" : "View All"}
           </button>

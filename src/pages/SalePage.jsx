@@ -72,7 +72,7 @@ const SalePage = () => {
           </p>
           <Link
             to="/products"
-            className="inline-block bg-[#b18e5a] hover:bg-[#a37a3e] text-white font-semibold text-sm sm:text-base px-6 py-2.5 rounded-lg shadow-md transition"
+            className="inline-block bg-[#faecd7] text-black rounded-md hover:bg-[#ba945b]  font-semibold text-sm sm:text-base px-6 py-2.5 rounded-lg shadow-md transition"
           >
             Shop All Products
           </Link>
