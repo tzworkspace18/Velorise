@@ -189,23 +189,26 @@ const Navbar = () => {
       </div>
 
       {/* ===== Mobile Header ===== */}
-      <div className="flex md:hidden items-center justify-between px-4 py-3 border-b">
-        <Link to="/" className="text-xl font-bold uppercase text-gray-800 pl-3">
+      <div className="flex md:hidden items-center justify-between max-w-7xl mx-auto px-4 py-3 border-b">
+        <Link to="/" className="text-lg sm:text-xl font-bold uppercase text-gray-800">
           VELORISE
         </Link>
-        <div className="flex items-center space-x-4 pr-3">
-          <Link
-            to="/cart"
-            className="relative text-gray-700 hover:text-gray-900"
-          >
-            <FiShoppingCart size={22} />
+
+        <div className="flex items-center space-x-3">
+          <Link to="/cart" className="relative text-gray-700 hover:text-gray-900">
+            <FiShoppingCart size={20} />
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] font-semibold w-4 h-4 flex items-center justify-center rounded-full">
+              <span className="absolute -top-1 -right-2 bg-black text-white text-[10px] font-semibold w-4 h-4 flex items-center justify-center rounded-full">
                 {cartCount}
               </span>
             )}
           </Link>
-          <button onClick={toggleMobileMenu} aria-label="Toggle Menu">
+
+          <button
+            onClick={toggleMobileMenu}
+            aria-label="Toggle Menu"
+            className="p-1 text-gray-700 hover:text-gray-900"
+          >
             {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
         </div>
