@@ -189,7 +189,7 @@ const Navbar = () => {
       </div>
 
       {/* ===== Mobile Header ===== */}
-      <div className="flex md:hidden items-center justify-between max-w-7xl mx-auto px-4 py-3 border-b">
+      <div className="flex md:hidden items-center justify-between max-w-7xl mx-auto px-4 py-4 border-b">
         <Link to="/" className="text-lg sm:text-xl font-bold uppercase text-gray-800">
           VELORISE
         </Link>
