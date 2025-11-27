@@ -22,7 +22,7 @@ const ProductGrid = ({ products = [], title = "Featured Products" }) => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 justify-items-center">
           {visible.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

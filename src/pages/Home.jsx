@@ -1,5 +1,6 @@
 import React from "react";
 import HeroSlider from "../components/HeroSlider";
+import Categories from "../components/Categories";
 import ProductGrid from "../components/ProductGrid";
 import Reviews from "../components/Reviews";
 import OfferBanner from "../components/OfferBanner";
@@ -12,6 +13,9 @@ const Home = () => {
     <div className="home-page bg-white text-black">
       {/* 🖼 Hero Section */}
       <HeroSlider slides={sliderData} />
+
+      {/* 🗂 Categories - circular icons linking to category pages */}
+      <Categories />
 
       {/* 🛍 Featured Products */}
       <ProductGrid title="Featured Products" products={products.slice(0, 4)} />

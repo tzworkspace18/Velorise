@@ -2,9 +2,59 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useLike } from "../context/LikeContext"; // ✅ Import context
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, variant = "default" }) => {
   const { toggleLike, isLiked } = useLike();
   const liked = isLiked(product.id);
+
+  // Compact / background-image style
+  if (variant === "compact") {
+    return (
+      <div className="relative w-full rounded-lg overflow-hidden shadow-sm">
+        <div
+          className="w-full h-40 sm:h-44 md:h-48 bg-center bg-cover"
+          style={{ backgroundImage: `url(${product.images[0]})` }}
+          role="img"
+          aria-label={product.name}
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end">
+          <div className="w-full p-3 flex items-center justify-between text-white">
+            <div className="flex-1 pr-3">
+              <h3 className="text-sm font-semibold line-clamp-2">{product.name}</h3>
+              <p className="text-xs opacity-90">₹{product.discountPrice}</p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  toggleLike(product);
+                }}
+                className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30"
+                aria-label="Like product"
+              >
+                {liked ? (
+                  <FaHeart className="text-red-400" />
+                ) : (
+                  <FaRegHeart className="text-white" />
+                )}
+              </button>
+
+              <a
+                href={product.link}
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center px-3 py-2 bg-white text-black rounded-md text-sm font-medium"
+              >
+                View
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Link
