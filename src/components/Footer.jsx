@@ -12,7 +12,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-gray-200">
+    <footer className="bg-gray-100 border-t border-gray-200">
       {/* 🌐 Main Footer */}
       <div className="max-w-7xl mx-auto px-6 sm:px-12 md:px-20 py-12 grid grid-cols-1 md:grid-cols-5 gap-10">
         {/* Left Section */}
