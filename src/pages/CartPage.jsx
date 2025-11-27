@@ -15,12 +15,16 @@ const CartPage = () => {
   const [coupon] = useState("");
 
   const handleIncrease = (id, size, color) => {
-    const item = cartItems.find((i) => i.id === id && i.size === size && i.color === color);
+    const item = cartItems.find(
+      (i) => i.id === id && i.size === size && i.color === color
+    );
     updateQuantity(id, size, color, item.quantity + 1);
   };
 
   const handleDecrease = (id, size, color) => {
-    const item = cartItems.find((i) => i.id === id && i.size === size && i.color === color);
+    const item = cartItems.find(
+      (i) => i.id === id && i.size === size && i.color === color
+    );
     if (item.quantity > 1) updateQuantity(id, size, color, item.quantity - 1);
   };
 
@@ -30,6 +34,11 @@ const CartPage = () => {
       return;
     }
     navigate("/checkout");
+  };
+
+  // image click → product details
+  const handleImageClick = (id) => {
+    navigate(`/product/${id}`);
   };
 
   const shipping = totalPrice > 3000 ? 0 : 99;
@@ -42,8 +51,12 @@ const CartPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
         <div className="bg-white rounded-lg border border-gray-200 p-6">
           <div className="flex justify-between items-center border-b pb-3 mb-5">
-            <h2 className="text-xl font-semibold text-gray-800">My Shopping Bag</h2>
-            <span className="text-sm text-gray-500">{cartItems.length} Items</span>
+            <h2 className="text-xl font-semibold text-gray-800">
+              My Shopping Bag
+            </h2>
+            <span className="text-sm text-gray-500">
+              {cartItems.length} Items
+            </span>
           </div>
 
           {/* Cart Items */}
@@ -59,6 +72,7 @@ const CartPage = () => {
                     src={item.image}
                     alt={item.name}
                     className="w-24 h-24 rounded-md object-cover border border-gray-200"
+                    onClick={() => handleImageClick(item.id)}
                   />
                   <div className="flex flex-col space-y-1">
                     <h3
@@ -81,7 +95,9 @@ const CartPage = () => {
                 <div className="hidden md:flex justify-center items-center">
                   <div className="flex items-center border border-gray-300 rounded-full overflow-hidden">
                     <button
-                      onClick={() => handleDecrease(item.id, item.size, item.color)}
+                      onClick={() =>
+                        handleDecrease(item.id, item.size, item.color)
+                      }
                       className="px-3 py-1 text-gray-700 font-bold hover:bg-gray-100"
                     >
                       −
@@ -90,7 +106,9 @@ const CartPage = () => {
                       {item.quantity}
                     </span>
                     <button
-                      onClick={() => handleIncrease(item.id, item.size, item.color)}
+                      onClick={() =>
+                        handleIncrease(item.id, item.size, item.color)
+                      }
                       className="px-3 py-1 text-gray-700 font-bold hover:bg-gray-100"
                     >
                       +
@@ -103,16 +121,45 @@ const CartPage = () => {
                     ₹{item.price * item.quantity}
                   </p>
                   <button
-                    onClick={() => removeFromCart(item.id, item.size, item.color)}
+                    onClick={() =>
+                      removeFromCart(item.id, item.size, item.color)
+                    }
                     className="text-red-500 hover:text-red-600"
                   >
                     <FaTrashAlt size={16} />
                   </button>
                 </div>
 
-                {/* ✅ Mobile View — Add Remove Icon at Bottom Right Corner */}
+                {/* ✅ Mobile View – Quantity Bar (NEW) */}
+                <div className="flex md:hidden items-center mt-2">
+                  <div className="flex items-center border border-gray-300 rounded-full overflow-hidden">
+                    <button
+                      onClick={() =>
+                        handleDecrease(item.id, item.size, item.color)
+                      }
+                      className="px-3 py-1 text-gray-700 font-bold hover:bg-gray-100"
+                    >
+                      −
+                    </button>
+                    <span className="px-3 text-gray-800 font-medium text-sm">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() =>
+                        handleIncrease(item.id, item.size, item.color)
+                      }
+                      className="px-3 py-1 text-gray-700 font-bold hover:bg-gray-100"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                {/* Mobile View — Remove Icon at Bottom Right Corner */}
                 <button
-                  onClick={() => removeFromCart(item.id, item.size, item.color)}
+                  onClick={() =>
+                    removeFromCart(item.id, item.size, item.color)
+                  }
                   className="absolute bottom-2 right-2 text-red-500 hover:text-red-600 md:hidden"
                 >
                   <FaTrashAlt size={18} />
@@ -122,39 +169,41 @@ const CartPage = () => {
           </div>
         </div>
 
-        {/* Order Summary */}
-        <div className="h-fit">
-          <div className="sticky top-6 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900">
-              Order Summary
-            </h2>
+        {/* Order Summary - show only when cart has items */}
+        {cartItems.length > 0 && (
+          <div className="h-fit">
+            <div className="sticky top-6 bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+              <h2 className="text-xl font-semibold mb-4 text-gray-900">
+                Order Summary
+              </h2>
 
-            <div className="flex justify-between mb-2 text-gray-600">
-              <span>Subtotal</span>
-              <span>₹{totalPrice}</span>
-            </div>
-            <div className="flex justify-between mb-2 text-gray-600">
-              <span>Shipping</span>
-              <span>{shipping === 0 ? "Free" : `₹${shipping}`}</span>
-            </div>
-            <div className="flex justify-between mb-2 text-gray-600">
-              <span>Tax (5%)</span>
-              <span>₹{tax}</span>
-            </div>
+              <div className="flex justify-between mb-2 text-gray-600">
+                <span>Subtotal</span>
+                <span>₹{totalPrice}</span>
+              </div>
+              <div className="flex justify-between mb-2 text-gray-600">
+                <span>Shipping</span>
+                <span>{shipping === 0 ? "Free" : `₹${shipping}`}</span>
+              </div>
+              <div className="flex justify-between mb-2 text-gray-600">
+                <span>Tax (5%)</span>
+                <span>₹{tax}</span>
+              </div>
 
-            <div className="border-t mt-4 pt-4 flex justify-between text-lg font-semibold text-gray-900">
-              <span>Total</span>
-              <span>₹{finalTotal}</span>
-            </div>
+              <div className="border-t mt-4 pt-4 flex justify-between text-lg font-semibold text-gray-900">
+                <span>Total</span>
+                <span>₹{finalTotal}</span>
+              </div>
 
-            <button
-              onClick={handleCheckout}
-              className="w-full mt-6 bg-[#faecd7] text-black font-semibold text-base  py-3 rounded-lg hover:bg-[#ba945b] transition-all text-center"
-            >
-              Proceed to Checkout
-            </button>
+              <button
+                onClick={handleCheckout}
+                className="w-full mt-6 bg-[#faecd7] text-black font-semibold text-base  py-3 rounded-lg hover:bg-[#ba945b] transition-all text-center"
+              >
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

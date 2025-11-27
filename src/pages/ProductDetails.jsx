@@ -55,7 +55,8 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Left Section */}
           <div className="flex flex-col md:flex-row gap-4">
-            {/* ✅ Mobile View: main image first, 3 thumbnails below */}
+
+            {/* Mobile View */}
             <div className="w-full flex flex-col items-center md:hidden">
               <div className="w-full flex justify-center border border-gray-100 p-4 mb-3">
                 <img
@@ -65,7 +66,6 @@ const ProductDetails = () => {
                 />
               </div>
 
-              {/* 3 images in a row */}
               <div className="flex justify-center gap-3">
                 {product.images.slice(0, 3).map((img, i) => (
                   <img
@@ -83,7 +83,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* ✅ Desktop View (unchanged) */}
+            {/* Desktop View */}
             <div className="hidden md:flex gap-4">
               <div className="flex flex-col gap-3 overflow-y-auto h-[450px]">
                 {product.images.map((img, i) => (
@@ -167,7 +167,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Dynamic Colour Section */}
+            {/* Colour Selection */}
             {product.colors && (
               <div className="mb-6">
                 <h3 className="font-semibold text-gray-800 text-sm mb-2">
@@ -193,22 +193,28 @@ const ProductDetails = () => {
 
             {/* Wishlist + Add to Bag */}
             <div className="flex items-center gap-4 mb-6">
+
+              {/* ❤️ UPDATED WISHLIST BUTTON */}
               <button
                 onClick={() => setIsFav(!isFav)}
-                className={`flex items-center justify-center gap-2 border border-gray-300 px-5 py-3 w-1/2 text-sm font-medium ${
-                  isFav ? "text-red-500" : "text-gray-700"
+                className={`flex items-center justify-center gap-2 px-5 py-3 w-1/2 text-sm font-medium border ${
+                  isFav
+                    ? "bg-red-200 text-black border-red-200"
+                    : "bg-white text-gray-700 border-gray-300 hover:border-gray-500"
                 }`}
               >
-                <FiHeart className="text-lg" />
+                <FiHeart className={`text-lg ${isFav ? "text-black" : "text-gray-700"}`} />
                 Add to Wishlist
               </button>
 
+              {/* Add to Cart */}
               <button
                 onClick={handleAddToCart}
                 className="w-1/2 bg-black text-white font-semibold py-3 text-sm hover:bg-gray-800 transition"
               >
                 Add to Bag
               </button>
+
             </div>
 
             {/* Delivery Info */}
@@ -233,6 +239,7 @@ const ProductDetails = () => {
       <div className="border-t border-gray-200 ">
         <Reviews />
       </div>
+
       <div className="border-t border-gray-200 mt-10">
         <ProductGrid title="More Products" products={products.slice(0, 4)} />
       </div>
