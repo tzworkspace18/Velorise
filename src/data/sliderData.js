@@ -3,7 +3,7 @@
 // Local hero images (placeholders). Replace these with your PNGs or external Pinterest links as needed.
 const sliderData = [
   {
-    image: "https://i.pinimg.com/736x/d6/20/cf/d620cf73dfc1456a52a9d55578e3da4c.jpg",
+    image: '/assets/images/hero05.png',
     caption: "Welcome Back Collection",
     subcaption: "New arrivals — curated for you",
     link: "/products",
@@ -11,7 +11,7 @@ const sliderData = [
     position: 'center'
   },
   {
-    image: "https://i.pinimg.com/1200x/a0/3b/f4/a03bf495bb0bbf2176d933e2ed5f2c05.jpg",
+    image: '/assets/images/hero06.png',
     caption: "New Arrival",
     subcaption: "Autumn & Winter collection",
     link: "/products",
@@ -19,7 +19,7 @@ const sliderData = [
     position: 'center'
   },
   {
-    image: "https://i.pinimg.com/1200x/af/05/31/af0531d818bfe94b6a20fed2ca5a1621.jpg",
+    image: '/assets/images/hero07.png',
     caption: "Young Day",
     subcaption: "Limited time offers",
     link: "/products",

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Import local category image(s). Please add your image file at `src/assets/images/category-women.jpg`.
+
+
 const categories = [
-  { id: 'women', name: 'Women', image: '/assets/images/category-women.jpg' },
-  { id: 'men', name: 'Men', image: '/assets/images/category-men.jpg' },
-  { id: 'kids', name: 'Kids', image: '/assets/images/category-kids.jpg' },
-  { id: 'accessories', name: 'Accessories', image: '/assets/images/category-accessories.jpg' }
+  { id: 'women', name: 'Women', image: '/assets/images/women1.png' },
+  { id: 'men', name: 'Men', image: '/assets/images/Men1.png' },
+  { id: 'kids', name: 'Kids', image: '/assets/images/Kids.png' },
+  { id: 'accessories', name: 'Accessories', image: '/assets/images/Accessories.png' }
 ];
 
 const Categories = ({ items = categories }) => {
@@ -38,3 +41,5 @@ const Categories = ({ items = categories }) => {
 };
 
 export default Categories;
+
+
