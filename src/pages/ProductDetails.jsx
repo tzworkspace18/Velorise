@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { FiHeart, FiTruck, FiRotateCcw, FiPackage } from "react-icons/fi";
+import {
+  FiHeart,
+  FiTruck,
+  FiRotateCcw,
+  FiPackage,
+  FiShoppingCart,
+} from "react-icons/fi";
 import { useCart } from "../context/CartContext";
+import { useLike } from "../context/LikeContext"; // ✅ use same context as Favourites & ProductCard
 import products from "../data/products";
 import Reviews from "../components/Reviews";
 import ProductGrid from "../components/ProductGrid";
@@ -9,15 +16,37 @@ import ProductGrid from "../components/ProductGrid";
 const ProductDetails = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === parseInt(id));
-  const { addToCart } = useCart();
 
-  const [mainImage, setMainImage] = useState(product.images[0]);
+  const { addToCart, cartItems } = useCart();
+  const { toggleLike, isLiked } = useLike(); // ✅ from LikeContext
+
+  // ✅ Hooks BEFORE any return
+  const [mainImage, setMainImage] = useState(
+    product && product.images && product.images.length > 0
+      ? product.images[0]
+      : ""
+  );
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(
-    product.colors ? product.colors[0] : null
+    product && product.colors ? product.colors[0] : null
   );
-  const [isFav, setIsFav] = useState(false);
+  const [isAdding, setIsAdding] = useState(false); // flick animation
 
+  // 👉 New state for swipe on mobile
+  const [touchStartX, setTouchStartX] = useState(null);
+
+  // ✅ Derive favourite state from context
+  const isFav = product ? isLiked(product.id) : false;
+
+  // ✅ Total quantity of THIS product in cart (all sizes/colours)
+  const productCartQty =
+    product && cartItems.length
+      ? cartItems
+          .filter((item) => item.id === product.id)
+          .reduce((sum, item) => sum + (item.quantity || 0), 0)
+      : 0;
+
+  // Early return AFTER hooks (rules-of-hooks safe)
   if (!product) {
     return (
       <div className="text-center py-20 text-gray-600">Product not found.</div>
@@ -34,6 +63,10 @@ const ProductDetails = () => {
       return;
     }
 
+    // ✅ Flick effect
+    setIsAdding(true);
+    setTimeout(() => setIsAdding(false), 150);
+
     addToCart({
       id: product.id,
       name: product.name,
@@ -43,6 +76,39 @@ const ProductDetails = () => {
       color: selectedColor,
       quantity: 1,
     });
+  };
+
+  // 👉 Swipe handlers (only used on mobile main image)
+  const handleTouchStart = (e) => {
+    if (!product.images || product.images.length === 0) return;
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX === null || !product.images || product.images.length === 0)
+      return;
+
+    const endX = e.changedTouches[0].clientX;
+    const diffX = endX - touchStartX;
+
+    const threshold = 50; // px – minimum swipe distance
+
+    if (Math.abs(diffX) > threshold) {
+      const currentIndex = product.images.indexOf(mainImage);
+      if (diffX < 0) {
+        // swipe left → next image
+        const nextIndex =
+          currentIndex === product.images.length - 1 ? 0 : currentIndex + 1;
+        setMainImage(product.images[nextIndex]);
+      } else {
+        // swipe right → previous image
+        const prevIndex =
+          currentIndex === 0 ? product.images.length - 1 : currentIndex - 1;
+        setMainImage(product.images[prevIndex]);
+      }
+    }
+
+    setTouchStartX(null);
   };
 
   return (
@@ -55,10 +121,13 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Left Section */}
           <div className="flex flex-col md:flex-row gap-4">
-
-            {/* Mobile View */}
+            {/* ✅ Mobile View: main image + 3 thumbs (now swipe-enabled) */}
             <div className="w-full flex flex-col items-center md:hidden">
-              <div className="w-full flex justify-center border border-gray-100 p-4 mb-3">
+              <div
+                className="w-full flex justify-center border border-gray-100 p-4 mb-3"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
                 <img
                   src={mainImage}
                   alt={product.name}
@@ -83,7 +152,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Desktop View */}
+            {/* Desktop View (UNCHANGED) */}
             <div className="hidden md:flex gap-4">
               <div className="flex flex-col gap-3 overflow-y-auto h-[450px]">
                 {product.images.map((img, i) => (
@@ -124,7 +193,7 @@ const ProductDetails = () => {
             </h1>
 
             <p className="text-gray-500 text-sm mb-3">
-              {product.description.slice(0, 80)}...
+              {product.description.slice(0, 80)}.
             </p>
 
             <div className="flex items-center gap-3 mb-3">
@@ -143,7 +212,9 @@ const ProductDetails = () => {
               )}
             </div>
 
-            <p className="text-xs text-gray-500 mb-6">MRP includes all taxes</p>
+            <p className="text-xs text-gray-500 mb-6">
+              MRP includes all taxes
+            </p>
 
             {/* Size Selection */}
             <div className="mb-5">
@@ -193,28 +264,39 @@ const ProductDetails = () => {
 
             {/* Wishlist + Add to Bag */}
             <div className="flex items-center gap-4 mb-6">
-
-              {/* ❤️ UPDATED WISHLIST BUTTON */}
+              {/* ❤️ Wishlist – uses global LikeContext, updates Favourites page */}
               <button
-                onClick={() => setIsFav(!isFav)}
+                onClick={() => toggleLike(product)}
                 className={`flex items-center justify-center gap-2 px-5 py-3 w-1/2 text-sm font-medium border ${
                   isFav
                     ? "bg-red-200 text-black border-red-200"
                     : "bg-white text-gray-700 border-gray-300 hover:border-gray-500"
                 }`}
               >
-                <FiHeart className={`text-lg ${isFav ? "text-black" : "text-gray-700"}`} />
+                <FiHeart
+                  className={`text-lg ${
+                    isFav ? "text-black" : "text-gray-700"
+                  }`}
+                />
                 Add to Wishlist
               </button>
 
-              {/* Add to Cart */}
+              {/* 🛍 Add to Bag – flick + cart icon + qty text */}
               <button
                 onClick={handleAddToCart}
-                className="w-1/2 bg-black text-white font-semibold py-3 text-sm hover:bg-gray-800 transition"
+                className={`w-1/2 bg-black text-white font-semibold py-3 text-sm hover:bg-gray-800 transition-transform transform ${
+                  isAdding ? "scale-95" : ""
+                }`}
               >
-                Add to Bag
+                {productCartQty > 0 ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <FiShoppingCart className="text-lg" />
+                    Added ({productCartQty})
+                  </span>
+                ) : (
+                  "Add to Bag"
+                )}
               </button>
-
             </div>
 
             {/* Delivery Info */}
